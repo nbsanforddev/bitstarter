@@ -13,7 +13,8 @@ app.get('/', function(request, response) {
 		    var buffer = new Buffer(stats.size());
 
 		    fs.readSync(fd, buffer, 0, buffer.length, null, function(error, bytesRead, buffer){
-			response.send(buffer.toString("utf-8", 0, buffer.length);
+			var data = buffer.toString("utf-8", 0, buffer.length);
+			response.send(data);
 			fs.close(fd);
 
 			console.log(error);
