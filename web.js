@@ -2,12 +2,24 @@ var express = require('express');
 var app = express.createServer(express.logger());
 app.use(express.logger());
 var fs = require('fs');
-var buf = new Buffer(256);
+var filename = "./index.html";
 
-fs.readSync('./index.html',buf,256,0);
 
 app.get('/', function(request, response) {
-  response.send(buf.toString());
+    fs.exists(filename, function(exists){
+	if(exists){
+	    fs.stat(filename, "r", function(error, status){
+		fs.open(filename, "r", function(error, fd){
+		    var buffer = new Buffer(stats.size());
+
+		    fs.readSync(fd, buffer, 0, buffer.length, null, function(error, bytesRead, buffer){
+			response.send(buffer.toString("utf-8", 0, buffer.length);
+			fs.close(fd);
+		    });
+		});
+	    });
+	});
+    });
 });
 
 var port = process.env.PORT || 5000;
