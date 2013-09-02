@@ -15,6 +15,8 @@ app.get('/', function(request, response) {
 		    fs.readSync(fd, buffer, 0, buffer.length, null, function(error, bytesRead, buffer){
 			response.send(buffer.toString("utf-8", 0, buffer.length);
 			fs.close(fd);
+
+			console.log(error);
 		    });
 		});
 	    });
